@@ -38,20 +38,28 @@ describe('splitInteger', () => {
   test('should handle large numbers correctly', () => {
     expect(splitInteger(1000000, 3)).toEqual([333334, 333333, 333333]);
   });
-
+  
+  for (let partsLeft = numberOfParts; partsLeft > 0; partsLeft--) {
+    const part = Math.floor(rest / partsLeft);
   test('should handle negative value correctly', () => {
     expect(splitInteger(-10, 2)).toEqual([-5, -5]);
   });
 
+    parts.push(part);
+    rest -= part;
+  }
   test('should return an empty array for non-positive numberOfParts', () => {
     expect(splitInteger(10, 0)).toEqual([]);
     expect(splitInteger(10, -3)).toEqual([]);
   });
 
+  return parts;
+}
   test('should handle more complex uneven splits', () => {
     expect(splitInteger(17, 4)).toEqual([5, 4, 4, 4]);
   });
 
+module.exports = splitInteger;
   test('should handle value slightly greater than number of parts', () => {
     expect(splitInteger(6, 5)).toEqual([2, 1, 1, 1, 1]);
   });
